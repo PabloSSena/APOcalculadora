@@ -6,14 +6,15 @@
   123 + 456 = = = = 1947
 */
 void test1(Calculator *calculator) {
-  calculator->getKeyboard()->getKey(ONE)->press();
-  calculator->getKeyboard()->getKey(TWO)->press();
-  calculator->getKeyboard()->getKey(THREE)->press();
-  calculator->getKeyboard()->getKey(SUM)->press();
-  calculator->getKeyboard()->getKey(FOUR)->press();
-  calculator->getKeyboard()->getKey(FIVE)->press();
-  calculator->getKeyboard()->getKey(SIX)->press();
-  calculator->getKeyboard()->getKey(EQUAL)->press();
+  // calculator->getKeyboard()->getKey(ONE)->press();
+  // calculator->getKeyboard()->getKey(TWO)->press();
+  calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
+  // calculator->getKeyboard()->getKey(THREE)->press();
+  // calculator->getKeyboard()->getKey(SUM)->press();
+  // calculator->getKeyboard()->getKey(FOUR)->press();
+  // calculator->getKeyboard()->getKey(FIVE)->press();
+  // calculator->getKeyboard()->getKey(SIX)->press();
+  // calculator->getKeyboard()->getKey(EQUAL)->press();
   // calculator->getKeyboard()->getKey(EQUAL)->press();
   // calculator->getKeyboard()->getKey(EQUAL)->press();
   // calculator->getKeyboard()->getKey(EQUAL)->press();

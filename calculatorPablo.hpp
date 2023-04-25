@@ -25,8 +25,8 @@ class CpuPablo: public Cpu{
     Display* display;
     Keyboard* keyboard;
     int flagOperador = 0; // quando for 1 ja foi passsado um operdador
-    int vet_digit_1_number = 0;
-    int vet_digit_2_number = 0;
+    int contador_registro_1 = 0;
+    int contador_registro_2 = 0;
     Digit vet_digit_1[8];
     Digit vet_digit_2[8];
     Operator op;
