@@ -26,7 +26,9 @@ void DisplayPablo::add(Digit digit) {
 
 void DisplayPablo::setSignal(Signal signal) { std::cout << (signal==NEGATIVE?"-":""); }
 
-void DisplayPablo::addDecimalSeparator() { std::cout << "."; }
+void DisplayPablo::addDecimalSeparator() { 
+  std::cout << "."; 
+}
 
 void DisplayPablo::clear() { std::cout << "\n"; }
 
