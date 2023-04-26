@@ -3,7 +3,7 @@
 #include <cmath>
 void CpuPablo::number_to_digits(float num) {
     Digit digits[8], vetor_organizador[8];
-    int counter = 0,digits_counter = 0, counter_vetor_organizador = 0, aux = 0;
+    int counter = 0,digits_counter = 0, counter_vetor_organizador = 0;
     int parte_inteira = (int)num; // pegando parte inteira do numero
     float parte_decimal = num - parte_inteira; // pegando parte decimal
 
@@ -18,9 +18,9 @@ void CpuPablo::number_to_digits(float num) {
         digits[digits_counter] = static_cast<Digit>(digito);
         digits_counter++;
     }
-    for(int i = digits_counter; i >=0 ;i--){
-        vetor_organizador[aux] = digits[i];
-        aux++;
+    for(int i = digits_counter-1; i >=0 ;i--){
+        vetor_organizador[counter_vetor_organizador] = digits[i];
+        counter_vetor_organizador++;
     }
 
     while (parte_decimal > 0){
@@ -30,8 +30,7 @@ void CpuPablo::number_to_digits(float num) {
         digits_counter++;
         parte_decimal = parte_decimal - digito; // parte decimal nesse momento é 4,5 fazemos -4 para nos sobrar só o 5
     }
-
-    for(int i = digits_counter - aux; i >= 0;i--){ //Organizando a parte decimal
+    for(int i = digits_counter - counter_vetor_organizador; i > 0;i--){ //Organizando a parte decimal
         vetor_organizador[i+1] = digits[i+1]; 
         counter_vetor_organizador++;                    
     }
