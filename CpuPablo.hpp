@@ -12,6 +12,7 @@ class CpuPablo: public Cpu{
     int pos_decimalSeparator_1 = -1;
     int pos_decimalSeparator_2 = -1;
 
+    int resultado_decimal_separator;
     int flagOperador = 0; // quando for 1 ja foi passsado um operdador
     int contador_registro_1 = 0;
     int contador_registro_2 = 0;

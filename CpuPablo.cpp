@@ -23,6 +23,8 @@ void CpuPablo::number_to_digits(float num) {
         counter_vetor_organizador++;
     }
 
+    if(parte_decimal > 0 ) this->resultado_decimal_separator = digits_counter;
+
     while (parte_decimal > 0){
         parte_decimal = parte_decimal * 10; // por exemplo: 0,45 vira 4,5 aí conseguimos pegar o 4
         int digito = (int)parte_decimal;    // cast pra int pra vir só o numero antes da virgula
@@ -39,24 +41,6 @@ void CpuPablo::number_to_digits(float num) {
       this->vet_digit_display[counter] = vetor_organizador[i];
       counter++;
     }
-    // this->contador_registro_1 = counter;
-
-    // Digit digits[8];
-    // int counter = 0, digitsCounter = 0;
-    // int i = 0;
-    // if (num == 0) {
-    //     this->vet_registro_1[0] = ZERO;
-    //     this->contador_registro_1 = 1;
-    // }
-    // float digit = num;
-    // while (num != 0) {
-    //     // int digit = num % 10;
-    //     digits[digitsCounter] = static_cast<Digit>(digit);
-    //     digitsCounter++;
-    //     num /= 10;
-    // }
-
-
 }
 
 float CpuPablo::pegar_decimal(float number){
@@ -176,6 +160,9 @@ void CpuPablo::receive(Control control) {
             // printf("Result = %f")
             this->number_to_digits(result);
             for(int i = 0; i < this->contador_registro_1;i++){
+            if(i == this->resultado_decimal_separator){
+              this->display->addDecimalSeparator();
+            }
               this->display->add(this->vet_digit_display[i]);
             }
         break;
