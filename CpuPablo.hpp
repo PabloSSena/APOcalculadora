@@ -19,7 +19,7 @@ class CpuPablo: public Cpu{
     float vet_registro_2[8];
     float result;
     float pegar_numero(const float* digits, int size, int registrador); // traduz os digitos para fazer operações aritméticas
-    void number_to_digits(int num);
+    void number_to_digits(float num);
     float pegar_decimal(float number); // pega a parte decimal do numero
 
     float numero_inteiro(const float* digits,int size);

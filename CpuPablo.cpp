@@ -1,26 +1,63 @@
 #include"CpuPablo.hpp"
 #include <iostream>
 #include <cmath>
-void CpuPablo::number_to_digits(int num) {
-    Digit digits[8];
-    int counter = 0, digitsCounter = 0;
-    int i = 0;
+void CpuPablo::number_to_digits(float num) {
+    Digit digits[8], vetor_organizador[8];
+    int counter = 0,digits_counter = 0, counter_vetor_organizador = 0, aux = 0;
+    int parte_inteira = (int)num; // pegando parte inteira do numero
+    float parte_decimal = num - parte_inteira; // pegando parte decimal
+
     if (num == 0) {
         this->vet_registro_1[0] = ZERO;
         this->contador_registro_1 = 1;
     }
-    while (num != 0) {
-        int digit = num % 10;
-        digits[digitsCounter] = static_cast<Digit>(digit);
-        digitsCounter++;
-        num /= 10;
+
+    while (parte_inteira > 0){
+        int digito = parte_inteira % 10;
+        parte_inteira = parte_inteira / 10;
+        digits[digits_counter] = static_cast<Digit>(digito);
+        digits_counter++;
+    }
+    for(int i = digits_counter; i >=0 ;i--){
+        vetor_organizador[aux] = digits[i];
+        aux++;
     }
 
-    for(int i = digitsCounter-1; i >=0; i--){
-      this->vet_digit_display[counter] = digits[i];
+    while (parte_decimal > 0){
+        parte_decimal = parte_decimal * 10; // por exemplo: 0,45 vira 4,5 aí conseguimos pegar o 4
+        int digito = (int)parte_decimal;    // cast pra int pra vir só o numero antes da virgula
+        digits[digits_counter] = static_cast<Digit>(digito);
+        digits_counter++;
+        parte_decimal = parte_decimal - digito; // parte decimal nesse momento é 4,5 fazemos -4 para nos sobrar só o 5
+    }
+
+    for(int i = digits_counter - aux; i >= 0;i--){ //Organizando a parte decimal
+        vetor_organizador[i+1] = digits[i+1]; 
+        counter_vetor_organizador++;                    
+    }
+
+    for(int i = 0; i <=counter_vetor_organizador; i++){
+      this->vet_digit_display[counter] = vetor_organizador[i];
       counter++;
     }
-    this->contador_registro_1 = counter;
+    // this->contador_registro_1 = counter;
+
+    // Digit digits[8];
+    // int counter = 0, digitsCounter = 0;
+    // int i = 0;
+    // if (num == 0) {
+    //     this->vet_registro_1[0] = ZERO;
+    //     this->contador_registro_1 = 1;
+    // }
+    // float digit = num;
+    // while (num != 0) {
+    //     // int digit = num % 10;
+    //     digits[digitsCounter] = static_cast<Digit>(digit);
+    //     digitsCounter++;
+    //     num /= 10;
+    // }
+
+
 }
 
 float CpuPablo::pegar_decimal(float number){
@@ -96,30 +133,6 @@ float CpuPablo::pegar_numero(const float* digits, int size, int registrador){
     return -1;
 }
 
-
-// int CpuPablo::converter_em_decimal(float numero){
-//     while (numero > 0){
-        
-//     }
-    
-// }
-
-// int CpuPablo::pegar_numero(Digit digit, int size, int num_registrador){
-//     float decimals = 0;
-//     this->contador_registro_1;
-//     if(num_registrador == 1){
-//         if(this->pos_decimalSeparator_1 < 0){
-//             result = result * 10 + static_cast<float>(digit);
-//             this->contador_registro_1++;
-//         }
-//         else{
-//             decimals = decimals * 10 + static_cast<float>(digit);
-            
-
-//         }
-//     }
-// }
-
 void CpuPablo::receive(Digit digit) { 
     if(this->flagOperador == 0){
         this->vet_registro_1[this->contador_registro_1] = digit;
@@ -144,8 +157,6 @@ void CpuPablo::receive(Control control) {
     case EQUAL:
             digito_1 = this->pegar_numero(this->vet_registro_1,this->contador_registro_1, 1);
             digito_2 = this->pegar_numero(this->vet_registro_2,this->contador_registro_2, 2);
-            printf("digito 1 = %f\n", digito_1);
-            printf("digito 2 = %f\n", digito_2);
 
             switch (this->op){
             case SUM:
@@ -163,6 +174,7 @@ void CpuPablo::receive(Control control) {
             default:
                 break;
             }
+            // printf("Result = %f")
             this->number_to_digits(result);
             for(int i = 0; i < this->contador_registro_1;i++){
               this->display->add(this->vet_digit_display[i]);
