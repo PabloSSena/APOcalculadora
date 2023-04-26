@@ -78,15 +78,10 @@ float CpuPablo::numero_real(const float* digits,int size, int operador){
 
 
 float CpuPablo::pegar_numero(const float* digits, int size, int registrador){
-    printf("\nthis->pos_decimalSeparator_1 = %d\n",this->pos_decimalSeparator_1);
-
-    if(this->pos_decimalSeparator_1 > 8 && registrador == 1){ //Caso o número seja inteiro
-        printf("Entra aqui?\n");
-
+    if(this->flag_decimalSeparator1 == 0 && registrador == 1){ //Caso o número seja inteiro
         return numero_inteiro(digits,size);
     }
-    if(this->pos_decimalSeparator_2 > 8 && registrador == 2){ //Caso o número seja inteiro
-        printf("Entra aqui?\n");
+    if(this->flag_decimalSeparator2 == 0  && registrador == 2){ //Caso o número seja inteiro
         return numero_inteiro(digits,size);
     }
     
@@ -149,8 +144,8 @@ void CpuPablo::receive(Control control) {
     case EQUAL:
             digito_1 = this->pegar_numero(this->vet_registro_1,this->contador_registro_1, 1);
             digito_2 = this->pegar_numero(this->vet_registro_2,this->contador_registro_2, 2);
-            printf("digito 1 = %d\n", digito_1);
-            printf("digito 2 = %d\n", digito_2);
+            printf("digito 1 = %f\n", digito_1);
+            printf("digito 2 = %f\n", digito_2);
 
             switch (this->op){
             case SUM:
@@ -177,10 +172,14 @@ void CpuPablo::receive(Control control) {
         if(this->display)
             this->display->addDecimalSeparator();
 
-        if(this->flagOperador == 0)
+        if(this->flagOperador == 0){
             this->pos_decimalSeparator_1 = this->contador_registro_1;
-        else
+            this->flag_decimalSeparator1++;
+        }
+        else{
             this->pos_decimalSeparator_2 = this->contador_registro_2;
+            this->flag_decimalSeparator2++;
+        }
         break;
     default:
         break;
