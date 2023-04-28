@@ -12,8 +12,13 @@ void test1(Calculator *calculator) {
   calculator->getKeyboard()->getKey(FIVE)->press();
   calculator->getKeyboard()->getKey(SUM)->press();
   // calculator->getKeyboard()->getKey(FOUR)->press();
-  calculator->getKeyboard()->getKey(FIVE)->press();
-  // calculator->getKeyboard()->getKey(SIX)->press();
+  calculator->getKeyboard()->getKey(ONE)->press();
+  calculator->getKeyboard()->getKey(MULTIPLICATION)->press();
+
+  calculator->getKeyboard()->getKey(THREE)->press();
+  calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
+  calculator->getKeyboard()->getKey(TWO)->press();
+
   calculator->getKeyboard()->getKey(EQUAL)->press();
   // calculator->getKeyboard()->getKey(EQUAL)->press();
   // calculator->getKeyboard()->getKey(EQUAL)->press();
@@ -23,14 +28,14 @@ void test1(Calculator *calculator) {
 // /**
 //   .1 * .1 = 0.01
 // */
-// void test2(Calculator *calculator) {
-//   calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
-//   calculator->getKeyboard()->getKey(ONE)->press();
-//   calculator->getKeyboard()->getKey(SUM)->press();
-//   calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
-//   calculator->getKeyboard()->getKey(ONE)->press();
-//   calculator->getKeyboard()->getKey(EQUAL)->press();
-// }
+void test2(Calculator *calculator) {
+  // calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
+  // calculator->getKeyboard()->getKey(ONE)->press();
+  // calculator->getKeyboard()->getKey(SUM)->press();
+  // calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
+  // calculator->getKeyboard()->getKey(ONE)->press();
+  // calculator->getKeyboard()->getKey(EQUAL)->press();
+}
 // /**
 //   .1 * .1 = 0.01
 // */

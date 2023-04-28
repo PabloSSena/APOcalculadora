@@ -29,7 +29,7 @@ class CpuPablo: public Cpu{
     int contador_registro_2 = 0;
     Digit vet_digit_1[8];
     Digit vet_digit_2[8];
-    Operator op;
+    Operator receiveOperator;
     int result;
     int translate_digit(const Digit* digits, int size); // traduz os digitos para fazer operações aritméticas
     void number_to_digits(int num);
