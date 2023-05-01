@@ -20,8 +20,8 @@ void test1(Calculator *calculator) {
   calculator->getKeyboard()->getKey(TWO)->press();
 
   calculator->getKeyboard()->getKey(EQUAL)->press();
-  // calculator->getKeyboard()->getKey(EQUAL)->press();
-  // calculator->getKeyboard()->getKey(EQUAL)->press();
+  calculator->getKeyboard()->getKey(EQUAL)->press();
+  calculator->getKeyboard()->getKey(EQUAL)->press();
   // calculator->getKeyboard()->getKey(EQUAL)->press();
 }
 

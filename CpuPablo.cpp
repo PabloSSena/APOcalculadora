@@ -17,7 +17,7 @@ void CpuPablo::number_to_digits(float num) {
         this->contador_registro_1 = 1;
     }
 
-    while (parte_inteira > 0){
+    while (parte_inteira > 0 && digits_counter < 7){
         int digito = parte_inteira % 10;
         parte_inteira = parte_inteira / 10;
         digits[digits_counter] = static_cast<Digit>(digito);
@@ -33,24 +33,22 @@ void CpuPablo::number_to_digits(float num) {
         this->resultado_decimal_separator = digits_counter;
         this->flag_decimal_result++;
 
-        while (parte_decimal > 0){
+        while (parte_decimal > 0 && digits_counter < 7){
             parte_decimal = parte_decimal * 10; // por exemplo: 0,45 vira 4,5 aí conseguimos pegar o 4
             int digito = (int)parte_decimal;    // cast pra int pra vir só o numero antes da virgula
             digits[digits_counter] = static_cast<Digit>(digito);
             digits_counter++;
             parte_decimal = parte_decimal - digito; // parte decimal nesse momento é 4,5 fazemos -4 para nos sobrar só o 5
         }
-        for(int i = digits_counter - counter_vetor_organizador; i > 0;i--){ //Organizando a parte decimal
+        for(int i = 8 - counter_vetor_organizador; i > 0;i--){ //Organizando a parte decimal
             vetor_organizador[i+1] = digits[i+1]; 
             counter_vetor_organizador++;                    
         }
     }
-
     for(int i = 0; i <= counter_vetor_organizador; i++){
       this->vet_digit_display[counter] = vetor_organizador[i];
       counter++;
     }
-
     this->contador_registro_1 = digits_counter;
 }
 
@@ -175,8 +173,9 @@ void CpuPablo::setDisplay(Display *display) {
 void CpuPablo::processa_equal(){
     float digito_1, digito_2;
     digito_1 = this->pegar_numero(this->vet_registro_1,this->contador_registro_1, 1);
+    printf("\ndigito 1 = %f\n",digito_1);
     digito_2 = this->pegar_numero(this->vet_registro_2,this->contador_registro_2, 2);
-    printf("\nDIGITO 2:%f\n", digito_2);
+    printf("\ndigito 2 = %f\n",digito_2);
     switch (this->receiveOperator){
         case SUM:
             this->result = digito_1 + digito_2;
@@ -194,7 +193,6 @@ void CpuPablo::processa_equal(){
             printf("Operador não encontrado\n");
             break;
     }
-    printf("Resultado = %f\n", this->result);
     this->number_to_digits(this->result);
 
     printf("\n");
@@ -243,7 +241,7 @@ void CpuPablo::passar_resultado_registrador_1(float numero){
     this->contador_registro_1 = contador_registro;
         
     if(parte_decimal > 0 ){
-        this->resultado_decimal_separator = counter_vetor_organizado;
+        this->resultado_decimal_separator = contador_registro;
         this->flag_decimal_result++;
 
         while (parte_decimal > 0){
