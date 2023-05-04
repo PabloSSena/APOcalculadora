@@ -6,31 +6,7 @@ CalculatorErrorPablo::CalculatorErrorPablo(char const *message) {
 }
 char const *CalculatorErrorPablo::getMessage() { return this->message; }
 
-void DisplayPablo::add(Digit digit) {
-  switch (digit) {
-  case ZERO: std::cout << "0"; break;
-  case ONE: std::cout << "1"; break;
-  case TWO: std::cout << "2"; break;
-  case THREE: std::cout << "3"; break;
-  case FOUR: std::cout << "4"; break;
-  case FIVE: std::cout << "5"; break;
-  case SIX: std::cout << "6"; break;
-  case SEVEN: std::cout << "7"; break;
-  case EIGHT: std::cout << "8"; break;
-  case NINE: std::cout << "9"; break;
-  default:
-    std::cout << "E";
-    throw new CalculatorErrorPablo("Digit not implemented!!!");
-  }
-}
 
-void DisplayPablo::setSignal(Signal signal) { std::cout << (signal==NEGATIVE?"-":""); }
-
-void DisplayPablo::addDecimalSeparator() { 
-  std::cout << "."; 
-}
-
-void DisplayPablo::clear() { std::cout << "\n"; }
 
 void KeyboardPablo::receive(Digit digit) { if(this->cpu)this->cpu->receive(digit);else std::cerr << "Keyboard without cpu!\n"; }
 void KeyboardPablo::receive(Operator operator_) { if(this->cpu)this->cpu->receive(operator_);else std::cerr << "Keyboard without cpu!\n"; }
@@ -63,10 +39,12 @@ void KeyboardPablo::add(Key *key) {
 }
 void KeyboardPablo::setCpu(Cpu *cpu) { this->cpu = cpu; }
 
+
 KeyDigitPablo::KeyDigitPablo(Symbol symbol, Digit digit) {
   this->symbol = symbol;
   this->digit = digit;
 }
+
 void KeyDigitPablo::press() {
   if (this->keyboard != NULL)
     this->keyboard->receive(this->digit);

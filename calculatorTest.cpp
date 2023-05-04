@@ -1,4 +1,5 @@
 #include "calculatorTest.hpp"
+
 #include <functional>
 #include <iostream>
 
@@ -7,21 +8,21 @@
 */
 void test1(Calculator *calculator) {
   calculator->getKeyboard()->getKey(ONE)->press();
-  calculator->getKeyboard()->getKey(TWO)->press();
-  calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
-  calculator->getKeyboard()->getKey(FIVE)->press();
-  calculator->getKeyboard()->getKey(SUM)->press();
+  // calculator->getKeyboard()->getKey(TWO)->press();
+  // calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
+  // calculator->getKeyboard()->getKey(FIVE)->press();
+  calculator->getKeyboard()->getKey(SUBTRACTION)->press();
   // calculator->getKeyboard()->getKey(FOUR)->press();
-  calculator->getKeyboard()->getKey(ONE)->press();
+  calculator->getKeyboard()->getKey(TWO)->press();
   calculator->getKeyboard()->getKey(MULTIPLICATION)->press();
 
   calculator->getKeyboard()->getKey(THREE)->press();
-  calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
-  calculator->getKeyboard()->getKey(TWO)->press();
+  // calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
+  // calculator->getKeyboard()->getKey(THREE)->press();
 
   calculator->getKeyboard()->getKey(EQUAL)->press();
-  calculator->getKeyboard()->getKey(EQUAL)->press();
-  calculator->getKeyboard()->getKey(EQUAL)->press();
+  // calculator->getKeyboard()->getKey(EQUAL)->press();
+  // calculator->getKeyboard()->getKey(EQUAL)->press();
   // calculator->getKeyboard()->getKey(EQUAL)->press();
 }
 
@@ -115,7 +116,7 @@ Calculator *buildCalculator() {
   keyboard->setCpu(cpu);
 
   cpu->setDisplay(display);
-  
+
   /* Conectando as partes da calculadora */
   calculator->setDisplay(display);
   calculator->setCpu(cpu);

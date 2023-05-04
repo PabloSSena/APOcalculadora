@@ -4,6 +4,8 @@
 #include <functional>
 
 #include "calculator.hpp"
+#include"CpuPablo.hpp"
+#include"displayPablo.hpp"
 
 void test1(Calculator*);
 void test2(Calculator*);

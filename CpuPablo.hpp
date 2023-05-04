@@ -1,4 +1,6 @@
+#pragma once
 #include "calculator.hpp"
+#include"calculatorPablo.hpp"
 
 class CpuPablo: public Cpu{
     Display* display;
@@ -14,9 +16,13 @@ class CpuPablo: public Cpu{
 
     int resultado_decimal_separator;
     int flagOperador = 0; // quando for 1 ja foi passsado um operdador
+
     int flag_decimal_result = 0; // Para saber se na resposta teremos "."
     int contador_registro_1 = 0;
     int contador_registro_2 = 0;
+    
+    int flag_signal_1 = 0;
+    int flag_signal_2 = 0;
 
     float vet_registro_1[8];
     float vet_registro_2[8];
@@ -39,4 +45,5 @@ class CpuPablo: public Cpu{
     void receive(Operator);
     void receive(Control);
     void setDisplay(Display*);
+    friend class DisplayPablo;
 };

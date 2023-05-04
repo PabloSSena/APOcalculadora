@@ -13,32 +13,6 @@ class KeyOperatorPablo: public KeyOperator{
     Operator getOperator();
 };
 
-class DisplayPablo: public Display{
-  public:
-    void add(Digit digit);
-    void setSignal(Signal);
-    void addDecimalSeparator();
-    void clear();
-};
-
-class CpuPablo: public Cpu{
-    Display* display;
-    Keyboard* keyboard;
-    int flagOperador = 0; // quando for 1 ja foi passsado um operdador
-    int contador_registro_1 = 0;
-    int contador_registro_2 = 0;
-    Digit vet_digit_1[8];
-    Digit vet_digit_2[8];
-    Operator receiveOperator;
-    int result;
-    int translate_digit(const Digit* digits, int size); // traduz os digitos para fazer operações aritméticas
-    void number_to_digits(int num);
-  public:
-    void receive(Digit);
-    void receive(Operator);
-    void receive(Control);
-    void setDisplay(Display*);
-};
 #include <vector>
 class KeyboardPablo: public Keyboard{
     std::vector<Key*> keys;
@@ -48,6 +22,7 @@ class KeyboardPablo: public Keyboard{
     void receive(Digit);
     void receive(Operator);
     void receive(Control);
+    Key* getKey(Signal);
     Key* getKey(Digit);
     Key* getKey(Operator);
     Key* getKey(Control);

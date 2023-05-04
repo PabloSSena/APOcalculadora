@@ -25,8 +25,8 @@ enum Color
 
 class Console
 {
-    Console();
 public:
+    Console();
     static void init(int startRow, int startCol);
 
     static void hideCursor();

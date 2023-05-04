@@ -10,13 +10,16 @@ void processa_equal(Control control);
 void CpuPablo::number_to_digits(float num) {
     Digit digits[8], vetor_organizador[8];
     int counter = 0,digits_counter = 0, counter_vetor_organizador = 0;
-    int parte_inteira = (int)num; // pegando parte inteira do numero
+    int parte_inteira = (int)num;
     float parte_decimal = num - parte_inteira; // pegando parte decimal
     if (num == 0) {
         this->vet_registro_1[0] = ZERO;
         this->contador_registro_1 = 1;
     }
 
+    if(num < 0){ 
+        parte_inteira = parte_inteira * (-1);
+    }
     while (parte_inteira > 0 && digits_counter < 7){
         int digito = parte_inteira % 10;
         parte_inteira = parte_inteira / 10;
@@ -68,15 +71,14 @@ float CpuPablo::numero_inteiro(const float* digits,int size){
     for (int i = 0; i < size; i++){
             result = result * 10 + static_cast<float>(digits[i]);
     }
-
     return result;
 }
 
-float CpuPablo::numero_real(const float* digits,int size, int operador){
+float CpuPablo::numero_real(const float* digits,int size, int registrador){
     float result = 0;
     float decimals = 0;
 
-    switch (operador){
+    switch (registrador){
     case 1:
         for (int i = 0; i < size; i++){
             if(i < this->pos_decimalSeparator_1){
@@ -88,8 +90,8 @@ float CpuPablo::numero_real(const float* digits,int size, int operador){
         }
         return result += pegar_decimal(decimals);
     break;
-    
     case 2: 
+        decimals = 0;
         for (int i = 0; i < size; i++){
             if(i < this->pos_decimalSeparator_2){
                 result = result * 10 + static_cast<float>(digits[i]);
@@ -105,7 +107,6 @@ float CpuPablo::numero_real(const float* digits,int size, int operador){
 
 }
 
-
 float CpuPablo::pegar_numero(const float* digits, int size, int registrador){
     if(this->flag_decimalSeparator1 == 0 && registrador == 1){ //Caso o número seja inteiro
         return numero_inteiro(digits,size);
@@ -115,7 +116,7 @@ float CpuPablo::pegar_numero(const float* digits, int size, int registrador){
     }
     
     //Caso tenha decimal
-    if(this->pos_decimalSeparator_1 > 0 && registrador == 1){  //Caso o número seja real       
+    if(this->pos_decimalSeparator_1 > 0 && registrador == 1){  //Caso o número seja inteiro       
         return numero_real(digits,size,1);
     }
     if(this->pos_decimalSeparator_2 > 0 && registrador == 2){  //Caso o número seja real        
@@ -173,15 +174,17 @@ void CpuPablo::setDisplay(Display *display) {
 void CpuPablo::processa_equal(){
     float digito_1, digito_2;
     digito_1 = this->pegar_numero(this->vet_registro_1,this->contador_registro_1, 1);
-    printf("\ndigito 1 = %f\n",digito_1);
     digito_2 = this->pegar_numero(this->vet_registro_2,this->contador_registro_2, 2);
-    printf("\ndigito 2 = %f\n",digito_2);
+
+    // if(this->flag_signal_1 == 1)
+    //     digito_1 = digito_1 * (-1);
+
     switch (this->receiveOperator){
         case SUM:
             this->result = digito_1 + digito_2;
             break;
         case SUBTRACTION:
-            this->result = digito_1 - digito_2;
+            this->result = digito_1 - digito_2; // -1
             break;
         case DIVISION:
             this->result = digito_1 / digito_2;
@@ -193,9 +196,12 @@ void CpuPablo::processa_equal(){
             printf("Operador não encontrado\n");
             break;
     }
+
     this->number_to_digits(this->result);
 
     printf("\n");
+    if(this->result < 0) this->display->setSignal(NEGATIVE);
+    
     for(int i = 0; i < this->contador_registro_1;i++){
         if(i == this->resultado_decimal_separator && this->flag_decimal_result > 0){
             this->display->addDecimalSeparator();
@@ -204,6 +210,7 @@ void CpuPablo::processa_equal(){
     }
     //Tem que implementar uma forma do registrador 1 receber o resultado da conta
     passar_resultado_registrador_1(this->result);
+
 }
 
 void CpuPablo::processa_decimal_separator(){
@@ -227,6 +234,11 @@ void CpuPablo::passar_resultado_registrador_1(float numero){
     int counter_aux = 0, contador_registro = 0, counter_vetor_organizado = 0;
     int recebe = parte_inteira;
 
+    if(numero < 0){ 
+        parte_inteira = parte_inteira * (-1);
+        this->flag_signal_1 = 1;
+    }
+    
     while(parte_inteira > 0){
         int recebe = parte_inteira % 10;
         parte_inteira = parte_inteira / 10;
