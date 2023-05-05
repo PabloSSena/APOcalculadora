@@ -8,7 +8,6 @@ void processa_equal(Control control);
 
 
 void CpuPablo::number_to_digits(float num) {
-    printf("NUMERO PARA NIMBER TO DIGITS = %f\n",num);
     Digit digits[8], vetor_organizador[8];
     int counter = 0,digits_counter = 0, counter_vetor_organizador = 0;
     int parte_inteira = (int)num;
@@ -35,7 +34,6 @@ void CpuPablo::number_to_digits(float num) {
     }
     int auxiliar = digits_counter;
     // Dentro desse bloco cuida do decimal
-    printf("parte decimal = %f\n",parte_decimal);
     if(parte_decimal > 0 ){
         this->resultado_decimal_separator = digits_counter;
         this->flag_decimal_result++;
