@@ -7,18 +7,22 @@
   123 + 456 = = = = 1947
 */
 void test1(Calculator *calculator) {
-  calculator->getKeyboard()->getKey(ONE)->press();
-  // calculator->getKeyboard()->getKey(TWO)->press();
-  // calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
-  // calculator->getKeyboard()->getKey(FIVE)->press();
-  calculator->getKeyboard()->getKey(SUBTRACTION)->press();
-  // calculator->getKeyboard()->getKey(FOUR)->press();
-  calculator->getKeyboard()->getKey(TWO)->press();
-  calculator->getKeyboard()->getKey(MULTIPLICATION)->press();
-
-  calculator->getKeyboard()->getKey(THREE)->press();
-  // calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
+  calculator->getKeyboard()->getKey(FOUR)->press();
   // calculator->getKeyboard()->getKey(THREE)->press();
+  // calculator->getKeyboard()->getKey(TWO)->press();
+  calculator->getKeyboard()->getKey(MULTIPLICATION)->press();
+  calculator->getKeyboard()->getKey(TWO)->press();
+  // calculator->getKeyboard()->getKey(THREE)->press();
+  // calculator->getKeyboard()->getKey(FOUR)->press();
+
+  // calculator->getKeyboard()->getKey(TWO)->press();
+  // calculator->getKeyboard()->getKey(SUM)->press();
+  // calculator->getKeyboard()->getKey(TWO)->press();
+  // calculator->getKeyboard()->getKey(SUBTRACTION)->press();
+
+  // calculator->getKeyboard()->getKey(THREE)->press();
+  // calculator->getKeyboard()->getKey(DECIMAL_SEPARATOR)->press();
+  calculator->getKeyboard()->getKey(THREE)->press();
 
   calculator->getKeyboard()->getKey(EQUAL)->press();
   // calculator->getKeyboard()->getKey(EQUAL)->press();
@@ -85,6 +89,9 @@ Calculator *buildCalculator() {
   KeyOperator *keySubtraction = new KeyOperatorPablo("-", SUBTRACTION);
   KeyOperator *keyMultiplication = new KeyOperatorPablo("*", MULTIPLICATION);
   KeyOperator *keyDivision = new KeyOperatorPablo("/", DIVISION);
+  KeyOperator *keySquare = new KeyOperatorPablo("√", SQUARE);
+  KeyOperator *keyPercentage = new KeyOperatorPablo(" %", PERCENTAGE);
+
 
 
   KeyControl *keyClearError = new KeyControlPablo("CE", CLEAR_ERROR);
@@ -107,6 +114,8 @@ Calculator *buildCalculator() {
   keyboard->add(keySubtraction);
   keyboard->add(keyMultiplication);
   keyboard->add(keyDivision);
+  keyboard->add(keySquare);
+  keyboard->add(keyPercentage);
 
   keyboard->add(keyClearError);
   keyboard->add(keyEqual);

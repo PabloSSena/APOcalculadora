@@ -18,50 +18,50 @@ void DisplayPablo::add(Digit digit) {
     throw new CalculatorErrorPablo("Digit not implemented!!!");
   }
 }
-// void DisplayPablo::refresh(){
-//       console.setColorBg256(Color::BG_Green);
-//       console.setColorFg256(Color::FG_White);
-//       // console.clear_screen();
+void DisplayPablo::refresh(){
+      console.setColorBg256(Color::BG_Red);
+      console.setColorFg256(Color::FG_White);
+      // console.clear_screen();
 
 
-//       // if(signal==NEGATIVE){
-//       //   this->showDigitShape("    ","    ", "████", "    ","    ",0);
-//       // } else {
-//       //   // this->showDigitShape("    ","  █ ", " ███", "  █ ","    ",0);
-//       //   this->showDigitShape("    ","    ", "    ", "    ","    ",0);
-//       // }
+      // if(signal==NEGATIVE){
+      //   this->showDigitShape("    ","    ", "████", "    ","    ",0);
+      // } else {
+      //   // this->showDigitShape("    ","  █ ", " ███", "  █ ","    ",0);
+      //   this->showDigitShape("    ","    ", "    ", "    ","    ",0);
+      // }
       
-//       // for(int i = 1; i <= this->digitsCount; i++){
-//       //   switch(this->digits[i-1]){
-//       //   case ZERO:
-//       //     this->console.set_cursor(1, 1+i * 5);printf("0000");
-//       //     this->console.set_cursor(2, 1+i * 5);printf("0  0");
-//       //     this->console.set_cursor(3, 1+i * 5);printf("0  0");
-//       //     this->console.set_cursor(4, 1+i * 5);printf("0  0");
-//       //     this->console.set_cursor(5, 1+i * 5);printf("0000");
-//       //     break;
-//       //   case ONE:
-//       //     this->console.set_cursor(1, 1+i * 5);printf("   1");
-//       //     this->console.set_cursor(2, 1+i * 5);printf("   1");
-//       //     this->console.set_cursor(3, 1+i * 5);printf("   1");
-//       //     this->console.set_cursor(4, 1+i * 5);printf("   1");
-//       //     this->console.set_cursor(5, 1+i * 5);printf("   1");
-//       //     break;
-//       //   case TWO:
-//       //     this->showDigitShape("2222","   2","2222","2  ","2222",i);
-//       //     break;
-//       //   case THREE:
-//       //     this->showDigitShape("😀😀","  😀","😀😀","  😀","😀😀",i);
-//       //     break;
-//       //   case FOUR:
-//       //     this->showDigitShape("█  █","█  █", "████", "   █","   █",i);
-//       //     break;
-//       //   default:
-//       //     this->showDigitShape(" ██ ","█  █", "  █ ", "    ","  █ ",i);
-//       //   }
-//       //   printf(dots[i-1]?"█":" ");
+      // for(int i = 1; i <= this->digitsCount; i++){
+      //   switch(this->digits[i-1]){
+      //   case ZERO:
+      //     this->console.set_cursor(1, 1+i * 5);printf("0000");
+      //     this->console.set_cursor(2, 1+i * 5);printf("0  0");
+      //     this->console.set_cursor(3, 1+i * 5);printf("0  0");
+      //     this->console.set_cursor(4, 1+i * 5);printf("0  0");
+      //     this->console.set_cursor(5, 1+i * 5);printf("0000");
+      //     break;
+      //   case ONE:
+      //     this->console.set_cursor(1, 1+i * 5);printf("   1");
+      //     this->console.set_cursor(2, 1+i * 5);printf("   1");
+      //     this->console.set_cursor(3, 1+i * 5);printf("   1");
+      //     this->console.set_cursor(4, 1+i * 5);printf("   1");
+      //     this->console.set_cursor(5, 1+i * 5);printf("   1");
+      //     break;
+      //   case TWO:
+      //     this->showDigitShape("2222","   2","2222","2  ","2222",i);
+      //     break;
+      //   case THREE:
+      //     this->showDigitShape("😀😀","  😀","😀😀","  😀","😀😀",i);
+      //     break;
+      //   case FOUR:
+      //     this->showDigitShape("█  █","█  █", "████", "   █","   █",i);
+      //     break;
+      //   default:
+      //     this->showDigitShape(" ██ ","█  █", "  █ ", "    ","  █ ",i);
+      //   }
+      //   printf(dots[i-1]?"█":" ");
       
-//     }
+    }
 void DisplayPablo::setSignal(Signal signal) { 
   // if(this->cpu.flagOperador == 0)
   //   this->cpu.flag_signal_1 = 1;

@@ -7,7 +7,7 @@ class CpuPablo: public Cpu{
     Keyboard* keyboard;
     Operator receiveOperator;
     Digit vet_digit_display[8];
-
+    float digito_1, digito_2;
     int flag_decimalSeparator1 = 0;
     int flag_decimalSeparator2 = 0;
 
@@ -27,6 +27,7 @@ class CpuPablo: public Cpu{
     float vet_registro_1[8];
     float vet_registro_2[8];
     float result;
+    int flag_trava_registro2 = 0;
 
     float pegar_numero(const float* digits, int size, int registrador); // traduz os digitos para fazer operações aritméticas
     void number_to_digits(float num);

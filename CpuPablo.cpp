@@ -8,10 +8,11 @@ void processa_equal(Control control);
 
 
 void CpuPablo::number_to_digits(float num) {
+    printf("NUMERO PARA NIMBER TO DIGITS = %f\n",num);
     Digit digits[8], vetor_organizador[8];
     int counter = 0,digits_counter = 0, counter_vetor_organizador = 0;
     int parte_inteira = (int)num;
-    float parte_decimal = num - parte_inteira; // pegando parte decimal
+    float parte_decimal = num - parte_inteira; // pegando parte decimal    
     if (num == 0) {
         this->vet_registro_1[0] = ZERO;
         this->contador_registro_1 = 1;
@@ -19,6 +20,7 @@ void CpuPablo::number_to_digits(float num) {
 
     if(num < 0){ 
         parte_inteira = parte_inteira * (-1);
+        parte_decimal = parte_decimal * (-1);
     }
     while (parte_inteira > 0 && digits_counter < 7){
         int digito = parte_inteira % 10;
@@ -31,11 +33,12 @@ void CpuPablo::number_to_digits(float num) {
         vetor_organizador[counter_vetor_organizador] = digits[i];
         counter_vetor_organizador++;
     }
+    int auxiliar = digits_counter;
     // Dentro desse bloco cuida do decimal
+    printf("parte decimal = %f\n",parte_decimal);
     if(parte_decimal > 0 ){
         this->resultado_decimal_separator = digits_counter;
         this->flag_decimal_result++;
-
         while (parte_decimal > 0 && digits_counter < 7){
             parte_decimal = parte_decimal * 10; // por exemplo: 0,45 vira 4,5 aí conseguimos pegar o 4
             int digito = (int)parte_decimal;    // cast pra int pra vir só o numero antes da virgula
@@ -43,14 +46,15 @@ void CpuPablo::number_to_digits(float num) {
             digits_counter++;
             parte_decimal = parte_decimal - digito; // parte decimal nesse momento é 4,5 fazemos -4 para nos sobrar só o 5
         }
-        for(int i = 8 - counter_vetor_organizador; i > 0;i--){ //Organizando a parte decimal
-            vetor_organizador[i+1] = digits[i+1]; 
+        
+        for(int i = auxiliar; i < 8 ;i++){ //Organizando a parte decimal            
+            vetor_organizador[counter_vetor_organizador] = digits[i];
             counter_vetor_organizador++;                    
         }
     }
     for(int i = 0; i <= counter_vetor_organizador; i++){
-      this->vet_digit_display[counter] = vetor_organizador[i];
-      counter++;
+        this->vet_digit_display[counter] = vetor_organizador[i];
+        counter++;
     }
     this->contador_registro_1 = digits_counter;
 }
@@ -102,6 +106,7 @@ float CpuPablo::numero_real(const float* digits,int size, int registrador){
         }
         return result += pegar_decimal(decimals);
     default:
+        return -99999999999;
         break;
     }
 
@@ -134,6 +139,7 @@ void CpuPablo::receive(Digit digit) {
     else{
         this->vet_registro_2[this->contador_registro_2] = digit;
         this->contador_registro_2++;
+        this->flag_trava_registro2 = 0;
     }
     if(this->display)
         this->display->add(digit); 
@@ -158,6 +164,7 @@ void CpuPablo::receive(Control control) {
     switch (control){ //Fazer um método para lidar com o igual para ficar mais bonito, exemplo processaOperacao
     case EQUAL: // fazer uma maneira de que quando eu aperto o operador mais de uma vez fazer o display tambem, exemplo 1+1 +  tem que mostrar 2
         processa_equal();
+        this->flag_trava_registro2 = 1;
         break;
 
     case DECIMAL_SEPARATOR:
@@ -172,12 +179,12 @@ void CpuPablo::setDisplay(Display *display) {
 }
 
 void CpuPablo::processa_equal(){
-    float digito_1, digito_2;
-    digito_1 = this->pegar_numero(this->vet_registro_1,this->contador_registro_1, 1);
-    digito_2 = this->pegar_numero(this->vet_registro_2,this->contador_registro_2, 2);
-
-    // if(this->flag_signal_1 == 1)
-    //     digito_1 = digito_1 * (-1);
+    
+    this->digito_1 = this->pegar_numero(this->vet_registro_1,this->contador_registro_1, 1);
+    if(this->flag_trava_registro2 == 0)
+        this->digito_2 = this->pegar_numero(this->vet_registro_2,this->contador_registro_2, 2);
+    if(this->flag_signal_1 == 1)
+        digito_1 = digito_1 * (-1);
 
     switch (this->receiveOperator){
         case SUM:
@@ -192,6 +199,10 @@ void CpuPablo::processa_equal(){
         case MULTIPLICATION:
             this->result = digito_1 * digito_2;
             break;
+        case SQUARE:
+            this->result = sqrt(this->digito_1);
+        case PERCENTAGE:
+            this->result = (this->digito_1 * this->digito_2) / 100;
         default:
             printf("Operador não encontrado\n");
             break;
